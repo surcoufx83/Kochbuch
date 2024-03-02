@@ -22,7 +22,7 @@ RUN chown -R nobody.nobody /var/www/html && \
 USER nobody
 
 WORKDIR /var/www/html
-COPY src/ /var/www/html
+COPY --chown=nobody:nobody src/ /var/www/html
 
 RUN composer install
 
@@ -30,4 +30,4 @@ EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-ping
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-status
