@@ -20,10 +20,10 @@ final class Config
 
   public function __construct()
   {
-    if (!\file_exists(DIR_CONFIG . DS . 'cbconfig.yml'))
-      throw new \Exception("cbconfig.yml not found in folder config. Please check cbconfig.yml.templat for more information.", 1);
+    if (!\file_exists('/config/config.yml'))
+      throw new \Exception("/config/config.yml not found in folder config. Please check cbconfig.yml.template for more information.", 1);
 
-    $this->config = Yaml::parse(file_get_contents(DIR_CONFIG . DS . 'cbconfig.yml'));
+    $this->config = Yaml::parse(file_get_contents('/config/config.yml'));
     $this->config['System']['MaintenanceMode'] = file_exists(ROOT . DS . '.maintenance.tmp');
     if (!defined('MAINTENANCE'))
       define('MAINTENANCE', $this->config['System']['MaintenanceMode']);
