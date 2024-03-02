@@ -22,7 +22,7 @@ RUN chown -R nobody.nobody /var/www/html && \
 USER nobody
 
 WORKDIR /var/www/html
-COPY src/ /var/www/html
+COPY --chown=nobody:nobody src/ /var/www/html
 
 RUN composer install
 
