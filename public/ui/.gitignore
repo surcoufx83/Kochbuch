@@ -1,0 +1,7 @@
+pictures/*.*
+pictures/avatars/*.png
+pictures/cbimages/*
+pictures/tempimages/*
+
+!.gitkeep
+!/**/.gitkeep

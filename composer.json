@@ -1,0 +1,14 @@
+{
+    "name": "stefan/kochbuch-backend",
+    "license": "proprietary",
+    "version": "2.0.0",
+    "require": {
+        "phpmailer/phpmailer": "^6.8",
+        "league/oauth2-client": "^2.7",
+        "symfony/yaml": "^5.4",
+        "benmajor/php-image-resize": "^1.1",
+        "bahuma/oauth2-nextcloud": "^2.0",
+        "orhanerday/open-ai": "^4.9",
+        "adhocore/cli": "^v1.0.0"
+    }
+}
