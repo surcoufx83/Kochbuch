@@ -1,8 +1,6 @@
 FROM php:fpm-alpine
 
-RUN apk update \
-    && apk add nginx supervisor curl \
-    && rm -rf /var/cache/apk/* \
+RUN apk --no-cache add nginx supervisor curl \
     && mkdir -p /run/nginx
 
 RUN docker-php-ext-install mysqli
