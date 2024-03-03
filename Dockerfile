@@ -1,16 +1,21 @@
 FROM php:fpm-alpine
 
-RUN apk --no-cache add nginx supervisor curl \
-    && mkdir -p /run/nginx
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 
-RUN docker-php-ext-install mysqli
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN apk add --no-cache nginx supervisor curl autoconf && \
+    mkdir -p /run/nginx && \
+    chmod uga+x /usr/local/bin/install-php-extensions && \
+    sync && \
+    docker-php-ext-install mysqli && \
+    install-php-extensions imagick && \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+    mkdir -p /var/www/html
+
 COPY config/nginx.conf /etc/nginx/nginx.conf
-COPY config/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
-COPY config/php.ini /etc/php8/conf.d/custom.ini
+COPY config/fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
+COPY config/kochbuch-fpm.ini /usr/local/etc/php/conf.d/kochbuch-fpm.ini
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-RUN mkdir -p /var/www/html
 
 RUN chown -R nobody.nobody /var/www/html && \
     chown -R nobody.nobody /run && \
