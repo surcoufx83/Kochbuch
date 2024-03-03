@@ -1,0 +1,36 @@
+upstream kochbuch {
+    # Configure your docker server and port
+    server 127.0.0.1:11902;
+    keepalive 64;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    # Configure your public url
+    server_name mykochbuch.example.com;
+
+    client_max_body_size 64M;
+
+    server_tokens off;
+
+    # nginx will forward anything to the container via the upstream server (see lines 1...5)
+    location / {
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://kochbuch;
+        proxy_pass_request_headers on;
+        proxy_set_header Connection "keep-alive";
+        proxy_store off;
+    }
+
+    location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        deny all;
+    }
+
+}
