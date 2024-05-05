@@ -1,13 +1,13 @@
 FROM php:fpm-alpine
 
-ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+ENV MAGICK_HOME=/usr
 
-RUN apk add --no-cache nginx supervisor curl autoconf && \
+RUN apk add --no-cache nginx supervisor curl autoconf build-base pkgconf imagemagick-dev imagemagick && \
     mkdir -p /run/nginx && \
-    chmod uga+x /usr/local/bin/install-php-extensions && \
     sync && \
+    pecl install imagick && \
     docker-php-ext-install mysqli && \
-    install-php-extensions imagick && \
+    docker-php-ext-enable imagick && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     mkdir -p /var/www/html
