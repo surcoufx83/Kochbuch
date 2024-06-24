@@ -24,7 +24,7 @@ final class Config
       throw new \Exception("/config/config.yml not found in folder config. Please check cbconfig.yml.template for more information.", 1);
 
     $this->config = Yaml::parse(file_get_contents('/config/config.yml'));
-    $this->config['System']['MaintenanceMode'] = file_exists(ROOT . DS . '.maintenance.tmp');
+    $this->config['System']['MaintenanceMode'] = file_exists('/var/www/html/.maintenance.tmp');
     if (!defined('MAINTENANCE'))
       define('MAINTENANCE', $this->config['System']['MaintenanceMode']);
     if ($this->config['System']['DebugMode'] === true) {

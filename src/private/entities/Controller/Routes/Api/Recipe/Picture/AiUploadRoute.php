@@ -95,7 +95,9 @@ class AiUploadRoute extends Route implements RouteInterface
             ],
             [
               'type' => 'image_url',
-              'image_url' => $tempuri,
+              'image_url' => [
+                'url' => $tempuri,
+              ],
             ],
           ]
         ],
@@ -115,7 +117,7 @@ class AiUploadRoute extends Route implements RouteInterface
 
       $responseObject = new AiResponse($chat);
       $repeat = 0;
-      while (!$responseObject->success && $responseObject->errorMessage == 'Invalid image.' && $repeat < 2) {
+      while (!$responseObject->success && $responseObject->errorMessage == 'Invalid image.' && $repeat < 1) {
         $repeat++;
         try {
           $chat = $Controller->ai($messages);

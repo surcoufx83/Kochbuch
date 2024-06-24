@@ -108,7 +108,7 @@ $this->pictures[0] = new DummyPicture(0); */
     global $Controller;
     $id = null;
 
-    file_put_contents(DIR_PUBLIC_IMAGES . DS . 'tempimages' . DS . 'ai.json', json_encode($aiobj));
+    file_put_contents('/media/ai.json', json_encode($aiobj));
 
     $query = 'INSERT INTO recipes(user_id, recipe_placeholder, recipe_name, recipe_description, recipe_eater, aigenerated) VALUES(?, 0, ?, ?, ?, 1)';
     $userid = $Controller->User()->getId();

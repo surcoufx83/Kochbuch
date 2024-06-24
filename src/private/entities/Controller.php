@@ -90,8 +90,8 @@ final class Controller implements DatabaseManagerInterface
   public function ai(array $inputMessages): bool|string
   {
     $chatinput = [
-      'model' => 'gpt-4-vision-preview',
-      'max_tokens' => 4000,
+      'model' => 'gpt-4o',
+      'max_tokens' => 4096,
       'messages' => $inputMessages
     ];
     $open_ai = new OpenAi($this->apikey);
