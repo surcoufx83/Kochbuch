@@ -1,8 +1,2 @@
-/cache/*.json
-/config/cbconfig.yml
-/public/ui/pictures/avatars/*
-/public/ui/pictures/cbimages/*
-/vendor/
-/.sass-cache/
-/.maintenance.tmp
-/.phpunit.result.cache
+buildAndRun.bat
+buildAndPublish_latest-dev.bat
